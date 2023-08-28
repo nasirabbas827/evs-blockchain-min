@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Block Data</title>
+</head>
+<body>
+    <h1>Add Block Data for Your Vote</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Your Vote Block Hash:</p>
+        <input type="text" name="hash_code" value="{{ user_vote.block.hash_code }}" required>
+        <p>Nonce:</p>
+        <input type="text" name="nonce" value="{{ user_vote.block.nonce }}" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

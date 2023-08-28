@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ election.name }} Election Results</title>
+</head>
+<body>
+    <h1>{{ election.name }} Election Results</h1>
+    <p>The election winner is: {{ winner.name }}</p>
+
+    <h2>Votes Received by Candidates:</h2>
+    <ul>
+    {% for candidate, votes_received in vote_counts.items %}
+        <li>
+            {{ candidate.name }}: {{ votes_received }} votes
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electronic Voting System - Elections</title>
+</head>
+<body>
+    <h1>Elections</h1>
+    <ul>
+    {% for election in elections %}
+        <li><a href="{% url 'election_detail' election.id %}">{{ election.name }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
