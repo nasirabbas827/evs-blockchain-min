@@ -9,6 +9,13 @@
             {% for election in elections %}
                 <li class="list-group-item">
                     <a href="{% url 'election_detail' election.id %}">{{ election.name }}</a>
+                    {% if election.status == 'ongoing' %}
+                        <button class="btn btn-primary btn-sm ml-3" onclick="window.location.href='{% url 'election_detail' election.id %}'">
+                            Vote
+                        </button>
+                    {% else %}
+                        <span class="badge badge-secondary ml-3">{{ election.status }}</span>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

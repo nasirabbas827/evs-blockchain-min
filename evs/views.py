@@ -134,6 +134,10 @@ from .models import Block
 @login_required
 def election_detail(request, election_id):
     election = get_object_or_404(Election, pk=election_id)
+
+    if election.status != 'ongoing':
+        return render(request, 'election_status.html', {'election': election})
+    
     candidates = Candidate.objects.filter(election=election)
     user_vote = Vote.objects.filter(user=request.user, election=election).first()
 

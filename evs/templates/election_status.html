@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ election.name }} Election Not Ongoing{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">{{ election.name }} Election Not Ongoing</h1>
+        </div>
+        <div class="card-body">
+            <p class="card-text">The election is not currently open for voting. Please check back later.</p>
+            <p class="card-text">Status: {{ election.status }}</p>
+            <a href="{% url 'election_list' %}" class="btn btn-primary">Back to Election List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

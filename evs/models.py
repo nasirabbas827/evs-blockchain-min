@@ -38,5 +38,6 @@ class Vote(models.Model):
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
     block = models.ForeignKey(Block, on_delete=models.SET_NULL, null=True, blank=True)
 
-
+    def __str__(self):
+            return f"Vote by {self.user.username} for {self.candidate.name} in {self.election.name}"
     
