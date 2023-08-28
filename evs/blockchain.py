@@ -42,12 +42,11 @@ class Blockchain:
     def add_block(self, data, leading_zeros):
         previous_block = self.chain[-1]
         previous_hash = self.hash_block(previous_block)
-        new_block = previous_block  # Reuse the previous block
-    
+        new_block = self.create_block(nonce=0, previous_hash=previous_hash)
         self.add_block_data(data)
         new_block.nonce = self.proof_of_work(new_block, leading_zeros)
-    
+
         # Recalculate the hash using the updated nonce value
         new_block.hash_code = format(int(self.hash_block(new_block), 16), '0{}x'.format(leading_zeros))
-    
+
         return new_block
