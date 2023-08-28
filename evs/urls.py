@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout/', views.custom_logout, name='logout'),         # Custom logout view
     path('election/<int:election_id>/', login_required(views.election_detail), name='election_detail'),
     path('election/<int:election_id>/results/', views.view_results, name='view_results'),
+    path('update_profile/', views.update_profile, name='update_profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

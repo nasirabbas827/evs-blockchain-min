@@ -1,64 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ election.name }} Election Details</title>
-</head>
-<body>
-    <h1>{{ election.name }} Election Details</h1>
-    <p>Status: {{ election.status }}</p>
-    
-    {% if user_vote %}
-    <p>Your Vote Block Hash: {{ user_vote.block.hash_code }}</p>
-    <p>Nonce: {{ user_vote.block.nonce }}</p>
-    <p>Timestamp: {{ user_vote.block.timestamp }}</p>
-    {% endif %}
+{% extends 'base.html' %}
 
-    <h2>Candidates:</h2>
-    <form method="post">
-        {% csrf_token %}
-        <ul>
-        {% for candidate in candidates %}
-            <li>
-                <strong>{{ candidate.name }}</strong>
-                <p>{{ candidate.description }}</p>
-                <img src="{{ candidate.image.url }}" alt="{{ candidate.name }}" width="100">
-                {% if not user_vote %}
-                <input type="radio" name="selected_candidate" value="{{ candidate.id }}">
+{% block title %}{{ election.name }} Election Details{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-3">{{ election.name }} Election Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">Status: {{ election.status }}</p>
+                
+                {% if user_vote %}
+                    <p class="card-text">Your Vote Block Hash: {{ user_vote.block.hash_code }}</p>
+                    <p class="card-text">Nonce: {{ user_vote.block.nonce }}</p>
+                    <p class="card-text">Timestamp: {{ user_vote.block.timestamp }}</p>
                 {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
-        {% if not user_vote %}
-        <input type="submit" value="Vote">
-        {% endif %}
-    </form>
-    
-    <h2>Vote Details:</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Block Hash</th>
-                <th>Nonce</th>
-                <th>Candidate</th>
-                <th>Election</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for vote in votes %}
-            <tr>
-                <td>{{ vote.user.username }}</td>
-                <td>{{ vote.block.hash_code }}</td>
-                <td>{{ vote.block.nonce }}</td>
-                <td>{{ vote.candidate.name }}</td>
-                <td>{{ vote.election.name }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    {% if user_vote %}
-    <p><a href="{% url 'view_results' election_id=election.id %}">View Election Results</a></p>
-    {% endif %}
-</body>
-</html>
+                
+                <h2 class="card-title">Candidates:</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <ul class="list-group list-group-flush">
+                        {% for candidate in candidates %}
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>{{ candidate.name }}</strong>
+                                    <img src="{{ candidate.image.url }}" alt="{{ candidate.name }}" width="100">
+                                    {% if not user_vote %}
+                                        <input type="radio" name="selected_candidate" value="{{ candidate.id }}">
+                                    {% endif %}
+                                </div>
+                                <p>{{ candidate.description }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% if not user_vote %}
+                        <button type="submit" class="btn btn-primary mt-3">Vote</button>
+                    {% endif %}
+                </form>
+                
+                {% if user_vote %}
+                    <a href="{% url 'view_results' election_id=election.id %}" class="btn btn-link mt-3">View Election Results</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

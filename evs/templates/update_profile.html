@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Update Profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.current_password.id_for_label }}">Current Password:</label>
+                {{ form.current_password }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.new_password1.id_for_label }}">New Password:</label>
+                {{ form.new_password1 }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.new_password2.id_for_label }}">Confirm New Password:</label>
+                {{ form.new_password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+{% endblock %}

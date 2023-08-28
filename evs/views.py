@@ -228,3 +228,19 @@ def view_results(request, election_id):
 
     return render(request, 'view_results.html', {'election': election, 'winner': winner, 'vote_counts': vote_counts})
 
+
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = UserChangeForm(instance=request.user)
+    return render(request, 'update_profile.html', {'form': form})
+
